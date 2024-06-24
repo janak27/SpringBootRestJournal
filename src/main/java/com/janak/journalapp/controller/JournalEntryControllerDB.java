@@ -44,8 +44,8 @@ public class JournalEntryControllerDB {
     public JournalEntry updateEntry(@PathVariable ObjectId givenID,@RequestBody JournalEntry newentry){
         JournalEntry old = journalEntryService.findById(givenID).orElse(null);
         if(old != null){
-            old.setTitle(newentry.getTitle() != null && newentry.getTitle().equals(" ") ? newentry.getTitle() : old.getTitle());
-            old.setContent(newentry.getContent() != null && newentry.getContent().equals("") ? newentry.getContent() : old.getContent());
+            old.setTitle(newentry.getTitle() != null && !newentry.getTitle().equals(" ") ? newentry.getTitle() : old.getTitle());
+            old.setContent(newentry.getContent() != null && !newentry.getContent().equals("") ? newentry.getContent() : old.getContent());
         }
 
         journalEntryService.saveEntry(old);
